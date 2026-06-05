@@ -1,4 +1,6 @@
 package expendedor.gui;
 
-public class PanelPrincipal{
+import javax.swing.*;
+
+public class PanelPrincipal extends JFrame {
 }
