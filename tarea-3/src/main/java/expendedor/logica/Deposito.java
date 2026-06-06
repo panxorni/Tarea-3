@@ -53,4 +53,12 @@ public class Deposito<T> {
     public boolean isEmpty() {
         return almacen.isEmpty();
     }
+
+    /**
+     * Entrega la lista interna de elementos para ser dibujados por la interfaz gráfica.
+     * @return El ArrayList que contiene los elementos del depósito.
+     */
+    public ArrayList<T> getLista() {
+        return this.almacen;
+    }
 }
