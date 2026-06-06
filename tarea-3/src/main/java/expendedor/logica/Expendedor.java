@@ -13,6 +13,8 @@ public class Expendedor{
     private Deposito<Producto> depositoFanta;
     private Deposito<Producto> depositoSnickers;
     private Deposito<Producto> depositoSuper8;
+    private Deposito<Moneda> depositoPagos;
+    private Producto productoParaEntregar;
 
     /**
      * Vacía el depósito de vuelto eliminando todas las monedas.
@@ -34,6 +36,8 @@ public class Expendedor{
         depositoFanta = new Deposito<>();
         depositoSnickers = new Deposito<>();
         depositoSuper8 = new Deposito<>();
+        depositoPagos = new Deposito<>();
+        productoParaEntregar = null;
 
 
         for (int i = 0; i < numProductos; i++){
@@ -84,19 +88,19 @@ public class Expendedor{
      * @throws PagoInsuficienteException Si el valor de la moneda es menor al precio del producto.
      * @throws NoHayProductoException    Si no queda stock del producto o el tipo es inválido.
      */
-    public Producto comprarProducto(Moneda m, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+    public void comprarProducto(Moneda m, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
         limpiarVuelto();
+
         // 1. Verificación de moneda nula
         if (m == null){
             throw new PagoIncorrectoException("Error: Se intentó comprar sin ingresar dinero (Moneda null).");
         }
 
         // 2. Verificación de tipo de producto agotado o no válido
-        //Obtener deposito correspondiente
-        Deposito<Producto> deposito= getDeposito(tipo);
+        Deposito<Producto> deposito = getDeposito(tipo);
         if (deposito == null || deposito.isEmpty()){
             depositoVuelto.addElemento(m);
-            throw new NoHayProductoException("Error: El tipo de producto esta agotado o no es válido.");
+            throw new NoHayProductoException("Error: El tipo de producto está agotado o no es válido.");
         }
 
         int precio = tipo.getPrecio();
@@ -108,40 +112,51 @@ public class Expendedor{
         }
 
         // 4. Extracción del producto del depósito correspondiente
-        Producto productoComprado = null;
+        Producto productoExtraido = null;
         switch (tipo){
-            case COCACOLA:
-                productoComprado = depositoCocaCola.getElemento();
-                break;
-            case SPRITE:
-                productoComprado = depositoSprite.getElemento();
-                break;
-            case FANTA:
-                productoComprado = depositoFanta.getElemento();
-                break;
-            case SNICKERS:
-                productoComprado = depositoSnickers.getElemento();
-                break;
-            case SUPER8:
-                productoComprado = depositoSuper8.getElemento();
-                break;
+            case COCACOLA: productoExtraido = depositoCocaCola.getElemento(); break;
+            case SPRITE:   productoExtraido = depositoSprite.getElemento(); break;
+            case FANTA:    productoExtraido = depositoFanta.getElemento(); break;
+            case SNICKERS: productoExtraido = depositoSnickers.getElemento(); break;
+            case SUPER8:   productoExtraido = depositoSuper8.getElemento(); break;
         }
 
-        // 5. Verificación de stock
-        if (productoComprado == null){
-            depositoVuelto.addElemento(m); // Se devuelve la misma moneda si no hay stock
+        // 5. Verificación de stock de seguridad
+        if (productoExtraido == null){
+            depositoVuelto.addElemento(m);
             throw new NoHayProductoException("Error: No queda stock del producto seleccionado (" + tipo.name() + ").");
         }
 
-        // 6. Cálculo y entrega del vuelto (solo si la compra es exitosa)
-        // La moneda de pago se extingue y se genera el vuelto en monedas de 100
+
+
+        //Se guarda la moneda en el depósito de pagos
+        depositoPagos.addElemento(m);
+
+        //Se aloja en el prodcuto de entrega
+        this.productoParaEntregar = productoExtraido;
+
+        //Cálculo y entrega del vuelto con distintos valores
         int montoVuelto = m.getValor() - precio;
-        while (montoVuelto > 0){
+
+        while (montoVuelto >= 500){
+            depositoVuelto.addElemento(new Moneda500());
+            montoVuelto -= 500;
+        }
+        while (montoVuelto >= 100){
             depositoVuelto.addElemento(new Moneda100());
             montoVuelto -= 100;
         }
+    }
 
-        return productoComprado;
+    /**
+     * Permite al comprador retirar el producto que acaba de comprar.
+     * Funciona como un compartimento de capacidad única.
+     * @return El producto comprado, o null si está vacío.
+     */
+    public Producto getProducto() {
+        Producto p = this.productoParaEntregar;
+        this.productoParaEntregar = null;
+        return p;
     }
 
     /**
