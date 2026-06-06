@@ -5,7 +5,7 @@ package expendedor.logica;
  * Gestiona depósitos individuales para distintos tipos de productos y un depósito
  * para las monedas de vuelto.
  */
-public class Expendedor{
+public class Expendedor {
 
     private Deposito<Moneda> depositoVuelto;
     private Deposito<Producto> depositoCocaCola;
@@ -21,15 +21,16 @@ public class Expendedor{
      * Se utiliza antes de procesar una nueva compra.
      */
     private void limpiarVuelto() {
-        while (getVuelto() != null);
+        while (getVuelto() != null) ;
     }
+
     /**
      * Constructor del Expendedor.
      * Inicializa los depósitos y los llena con la cantidad especificada de productos.
      *
      * @param numProductos La cantidad inicial de unidades que tendrá cada tipo de producto.
      */
-    public Expendedor(int numProductos){
+    public Expendedor(int numProductos) {
         depositoVuelto = new Deposito<>();
         depositoCocaCola = new Deposito<>();
         depositoSprite = new Deposito<>();
@@ -40,7 +41,7 @@ public class Expendedor{
         productoParaEntregar = null;
 
 
-        for (int i = 0; i < numProductos; i++){
+        for (int i = 0; i < numProductos; i++) {
             depositoCocaCola.addElemento(new CocaCola());
             depositoSprite.addElemento(new Sprite());
             depositoFanta.addElemento(new Fanta());
@@ -56,10 +57,9 @@ public class Expendedor{
      * @return depósito asociado o null si el tipo no es válido
      */
     private Deposito<Producto> getDeposito(TipoProducto tipo) {
-        if (tipo==null){
+        if (tipo == null) {
             return null;
-        }
-        else{
+        } else {
             switch (tipo) {
                 case COCACOLA:
                     return depositoCocaCola;
@@ -92,13 +92,13 @@ public class Expendedor{
         limpiarVuelto();
 
         // 1. Verificación de moneda nula
-        if (m == null){
+        if (m == null) {
             throw new PagoIncorrectoException("Error: Se intentó comprar sin ingresar dinero (Moneda null).");
         }
 
         // 2. Verificación de tipo de producto agotado o no válido
         Deposito<Producto> deposito = getDeposito(tipo);
-        if (deposito == null || deposito.isEmpty()){
+        if (deposito == null || deposito.isEmpty()) {
             depositoVuelto.addElemento(m);
             throw new NoHayProductoException("Error: El tipo de producto está agotado o no es válido.");
         }
@@ -106,27 +106,36 @@ public class Expendedor{
         int precio = tipo.getPrecio();
 
         // 3. Verificación de pago insuficiente
-        if (m.getValor() < precio){
+        if (m.getValor() < precio) {
             depositoVuelto.addElemento(m); // Se devuelve la misma moneda
             throw new PagoInsuficienteException("Error: El monto ingresado ($" + m.getValor() + ") es insuficiente para el producto seleccionado ($" + precio + ").");
         }
 
         // 4. Extracción del producto del depósito correspondiente
         Producto productoExtraido = null;
-        switch (tipo){
-            case COCACOLA: productoExtraido = depositoCocaCola.getElemento(); break;
-            case SPRITE:   productoExtraido = depositoSprite.getElemento(); break;
-            case FANTA:    productoExtraido = depositoFanta.getElemento(); break;
-            case SNICKERS: productoExtraido = depositoSnickers.getElemento(); break;
-            case SUPER8:   productoExtraido = depositoSuper8.getElemento(); break;
+        switch (tipo) {
+            case COCACOLA:
+                productoExtraido = depositoCocaCola.getElemento();
+                break;
+            case SPRITE:
+                productoExtraido = depositoSprite.getElemento();
+                break;
+            case FANTA:
+                productoExtraido = depositoFanta.getElemento();
+                break;
+            case SNICKERS:
+                productoExtraido = depositoSnickers.getElemento();
+                break;
+            case SUPER8:
+                productoExtraido = depositoSuper8.getElemento();
+                break;
         }
 
         // 5. Verificación de stock de seguridad
-        if (productoExtraido == null){
+        if (productoExtraido == null) {
             depositoVuelto.addElemento(m);
             throw new NoHayProductoException("Error: No queda stock del producto seleccionado (" + tipo.name() + ").");
         }
-
 
 
         //Se guarda la moneda en el depósito de pagos
@@ -138,11 +147,11 @@ public class Expendedor{
         //Cálculo y entrega del vuelto con distintos valores
         int montoVuelto = m.getValor() - precio;
 
-        while (montoVuelto >= 500){
+        while (montoVuelto >= 500) {
             depositoVuelto.addElemento(new Moneda500());
             montoVuelto -= 500;
         }
-        while (montoVuelto >= 100){
+        while (montoVuelto >= 100) {
             depositoVuelto.addElemento(new Moneda100());
             montoVuelto -= 100;
         }
@@ -151,6 +160,7 @@ public class Expendedor{
     /**
      * Permite al comprador retirar el producto que acaba de comprar.
      * Funciona como un compartimento de capacidad única.
+     *
      * @return El producto comprado, o null si está vacío.
      */
     public Producto getProducto() {
@@ -166,5 +176,43 @@ public class Expendedor{
      */
     public Moneda getVuelto(){
         return depositoVuelto.getElemento();
+    }
+
+
+    /**
+     * Rellena únicamente los depósitos que se encuentran vacíos.
+     * @param num La cantidad de productos con la que se rellenará el depósito.
+     */
+    public void rellenarDepositosVacios(int num) {
+
+        if (depositoCocaCola.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoCocaCola.addElemento(new CocaCola());
+            }
+        }
+
+        if (depositoSprite.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoSprite.addElemento(new Sprite());
+            }
+        }
+
+        if (depositoFanta.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoFanta.addElemento(new Fanta());
+            }
+        }
+
+        if (depositoSnickers.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoSnickers.addElemento(new Snickers());
+            }
+        }
+
+        if (depositoSuper8.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoSuper8.addElemento(new Super8());
+            }
+        }
     }
 }
