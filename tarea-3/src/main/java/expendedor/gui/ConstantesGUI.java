@@ -23,4 +23,6 @@ public final class ConstantesGUI {
     //Boton
     public static final int BOTON_ANCHO = 0;
     public static final int BOTON_ALTO = 0;
+    public static final int MARGEN = 20;
+    public static final int ESPACIADO = 10;
 }
