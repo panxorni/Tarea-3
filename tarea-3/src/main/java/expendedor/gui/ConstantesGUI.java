@@ -19,4 +19,8 @@ public final class ConstantesGUI {
     public static final int COMPRADOR_Y = 0;
     public static final int COMPRADOR_ANCHO = 0;
     public static final int COMPRADOR_ALTO = 0;
+
+    //Boton
+    public static final int BOTON_ANCHO = 0;
+    public static final int BOTON_ALTO = 0;
 }
