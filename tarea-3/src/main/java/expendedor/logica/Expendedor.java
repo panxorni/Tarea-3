@@ -215,4 +215,53 @@ public class Expendedor {
             }
         }
     }
+
+    /**
+     * Entregar el depósito lógico de CocaCola para conectarlo con la interfaz gráfica.
+     * @return El depósito de CocaCola.
+     */
+    public Deposito<Producto> getDepositoCocaCola() {
+        return this.depositoCocaCola;
+    }
+
+    /**
+     * Entregar el depósito lógico de Sprite para conectarlo con la interfaz gráfica.
+     * @return El depósito de Sprite.
+     */
+    public Deposito<Producto> getDepositoSprite() {
+        return this.depositoSprite;
+    }
+
+    /**
+     * Entregar el depósito lógico de Fanta para conectarlo con la interfaz gráfica.
+     * @return El depósito de Fanta.
+     */
+    public Deposito<Producto> getDepositoFanta() {
+        return this.depositoFanta;
+    }
+
+    /**
+     * Entregar el depósito lógico de Snickers para conectarlo con la interfaz gráfica.
+     * @return El depósito de Snickers.
+     */
+    public Deposito<Producto> getDepositoSnickers() {
+        return this.depositoSnickers;
+    }
+
+    /**
+     * Entregar el depósito lógico de Super8 para conectarlo con la interfaz gráfica.
+     * @return El depósito de Super8.
+     */
+    public Deposito<Producto> getDepositoSuper8() {
+        return this.depositoSuper8;
+    }
+
+    /**
+     * Observar el producto recién comprado sin extraerlo del compartimento de salida.
+     * Esto permite dibujarlo en pantalla sin alterar la lógica de retiro.
+     * @return El producto alojado en la salida, o null si está vacío.
+     */
+    public Producto verProducto() {
+        return this.productoParaEntregar;
+    }
 }
