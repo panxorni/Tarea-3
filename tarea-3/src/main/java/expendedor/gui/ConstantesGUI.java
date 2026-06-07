@@ -15,14 +15,14 @@ public final class ConstantesGUI {
     public static final int EXPENDEDOR_ALTO = 0;
 
     //Comprador
-    public static final int COMPRADOR_X = 0;
+    public static final int COMPRADOR_X = 600;
     public static final int COMPRADOR_Y = 0;
-    public static final int COMPRADOR_ANCHO = 0;
-    public static final int COMPRADOR_ALTO = 0;
+    public static final int COMPRADOR_ANCHO = 400;
+    public static final int COMPRADOR_ALTO = 700;
 
     //Boton
-    public static final int BOTON_ANCHO = 0;
-    public static final int BOTON_ALTO = 0;
+    public static final int BOTON_ANCHO = 120;
+    public static final int BOTON_ALTO = 40;
     public static final int MARGEN = 20;
     public static final int ESPACIADO = 10;
 }

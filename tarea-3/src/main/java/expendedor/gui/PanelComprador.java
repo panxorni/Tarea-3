@@ -27,7 +27,7 @@ public class PanelComprador{
 
     public void paintComponent(Graphics g){
 
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.darkGray);
         g.fillRect(x, y, anchoPanel, altoPanel);
 
         for (BotonProducto b: botones){

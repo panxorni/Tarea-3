@@ -13,7 +13,8 @@ public class PanelPrincipal extends JPanel {
         comprador = new PanelComprador();
         this.setBackground(Color.white);
     }
-    public void paintComponent (Graphics g) {  //todo se dibuja a partir de este método
+    @Override
+    protected void paintComponent (Graphics g) {  //todo se dibuja a partir de este método
         super.paintComponent(g); //llama al método paint al que hace override en la super clase
         //el de la super clase solo pinta el fondo (background)
 

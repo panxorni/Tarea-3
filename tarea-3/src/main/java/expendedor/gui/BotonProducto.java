@@ -21,8 +21,10 @@ public class BotonProducto {
     }
 
     public void draw(Graphics g){
+        g.setColor(Color.LIGHT_GRAY);
         g.fillRect(x, y, botonAncho, botonAlto);
-        g.drawString(producto.name(), x+0, y+0); //cambiar los ceros cuando se tengan los margenes definidos
+        g.setColor(Color.BLACK);
+        g.drawString(producto.name(), x+15, y+25);
     }
 
     public boolean esContenido(int clickX, int clickY){
