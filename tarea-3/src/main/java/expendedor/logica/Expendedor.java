@@ -5,7 +5,7 @@ package expendedor.logica;
  * Gestiona depósitos individuales para distintos tipos de productos y un depósito
  * para las monedas de vuelto.
  */
-public class Expendedor{
+public class Expendedor {
 
     private Deposito<Moneda> depositoVuelto;
     private Deposito<Producto> depositoCocaCola;
@@ -13,30 +13,35 @@ public class Expendedor{
     private Deposito<Producto> depositoFanta;
     private Deposito<Producto> depositoSnickers;
     private Deposito<Producto> depositoSuper8;
+    private Deposito<Moneda> depositoPagos;
+    private Producto productoParaEntregar;
 
     /**
      * Vacía el depósito de vuelto eliminando todas las monedas.
      * Se utiliza antes de procesar una nueva compra.
      */
     private void limpiarVuelto() {
-        while (getVuelto() != null);
+        while (getVuelto() != null) ;
     }
+
     /**
      * Constructor del Expendedor.
      * Inicializa los depósitos y los llena con la cantidad especificada de productos.
      *
      * @param numProductos La cantidad inicial de unidades que tendrá cada tipo de producto.
      */
-    public Expendedor(int numProductos){
+    public Expendedor(int numProductos) {
         depositoVuelto = new Deposito<>();
         depositoCocaCola = new Deposito<>();
         depositoSprite = new Deposito<>();
         depositoFanta = new Deposito<>();
         depositoSnickers = new Deposito<>();
         depositoSuper8 = new Deposito<>();
+        depositoPagos = new Deposito<>();
+        productoParaEntregar = null;
 
 
-        for (int i = 0; i < numProductos; i++){
+        for (int i = 0; i < numProductos; i++) {
             depositoCocaCola.addElemento(new CocaCola());
             depositoSprite.addElemento(new Sprite());
             depositoFanta.addElemento(new Fanta());
@@ -52,10 +57,9 @@ public class Expendedor{
      * @return depósito asociado o null si el tipo no es válido
      */
     private Deposito<Producto> getDeposito(TipoProducto tipo) {
-        if (tipo==null){
+        if (tipo == null) {
             return null;
-        }
-        else{
+        } else {
             switch (tipo) {
                 case COCACOLA:
                     return depositoCocaCola;
@@ -84,64 +88,85 @@ public class Expendedor{
      * @throws PagoInsuficienteException Si el valor de la moneda es menor al precio del producto.
      * @throws NoHayProductoException    Si no queda stock del producto o el tipo es inválido.
      */
-    public Producto comprarProducto(Moneda m, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+    public void comprarProducto(Moneda m, TipoProducto tipo) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
         limpiarVuelto();
+
         // 1. Verificación de moneda nula
-        if (m == null){
+        if (m == null) {
             throw new PagoIncorrectoException("Error: Se intentó comprar sin ingresar dinero (Moneda null).");
         }
 
         // 2. Verificación de tipo de producto agotado o no válido
-        //Obtener deposito correspondiente
-        Deposito<Producto> deposito= getDeposito(tipo);
-        if (deposito == null || deposito.isEmpty()){
+        Deposito<Producto> deposito = getDeposito(tipo);
+        if (deposito == null || deposito.isEmpty()) {
             depositoVuelto.addElemento(m);
-            throw new NoHayProductoException("Error: El tipo de producto esta agotado o no es válido.");
+            throw new NoHayProductoException("Error: El tipo de producto está agotado o no es válido.");
         }
 
         int precio = tipo.getPrecio();
 
         // 3. Verificación de pago insuficiente
-        if (m.getValor() < precio){
+        if (m.getValor() < precio) {
             depositoVuelto.addElemento(m); // Se devuelve la misma moneda
             throw new PagoInsuficienteException("Error: El monto ingresado ($" + m.getValor() + ") es insuficiente para el producto seleccionado ($" + precio + ").");
         }
 
         // 4. Extracción del producto del depósito correspondiente
-        Producto productoComprado = null;
-        switch (tipo){
+        Producto productoExtraido = null;
+        switch (tipo) {
             case COCACOLA:
-                productoComprado = depositoCocaCola.getElemento();
+                productoExtraido = depositoCocaCola.getElemento();
                 break;
             case SPRITE:
-                productoComprado = depositoSprite.getElemento();
+                productoExtraido = depositoSprite.getElemento();
                 break;
             case FANTA:
-                productoComprado = depositoFanta.getElemento();
+                productoExtraido = depositoFanta.getElemento();
                 break;
             case SNICKERS:
-                productoComprado = depositoSnickers.getElemento();
+                productoExtraido = depositoSnickers.getElemento();
                 break;
             case SUPER8:
-                productoComprado = depositoSuper8.getElemento();
+                productoExtraido = depositoSuper8.getElemento();
                 break;
         }
 
-        // 5. Verificación de stock
-        if (productoComprado == null){
-            depositoVuelto.addElemento(m); // Se devuelve la misma moneda si no hay stock
+        // 5. Verificación de stock de seguridad
+        if (productoExtraido == null) {
+            depositoVuelto.addElemento(m);
             throw new NoHayProductoException("Error: No queda stock del producto seleccionado (" + tipo.name() + ").");
         }
 
-        // 6. Cálculo y entrega del vuelto (solo si la compra es exitosa)
-        // La moneda de pago se extingue y se genera el vuelto en monedas de 100
+
+        //Se guarda la moneda en el depósito de pagos
+        depositoPagos.addElemento(m);
+
+        //Se aloja en el prodcuto de entrega
+        this.productoParaEntregar = productoExtraido;
+
+        //Cálculo y entrega del vuelto con distintos valores
         int montoVuelto = m.getValor() - precio;
-        while (montoVuelto > 0){
+
+        while (montoVuelto >= 500) {
+            depositoVuelto.addElemento(new Moneda500());
+            montoVuelto -= 500;
+        }
+        while (montoVuelto >= 100) {
             depositoVuelto.addElemento(new Moneda100());
             montoVuelto -= 100;
         }
+    }
 
-        return productoComprado;
+    /**
+     * Permite al comprador retirar el producto que acaba de comprar.
+     * Funciona como un compartimento de capacidad única.
+     *
+     * @return El producto comprado, o null si está vacío.
+     */
+    public Producto getProducto() {
+        Producto p = this.productoParaEntregar;
+        this.productoParaEntregar = null;
+        return p;
     }
 
     /**
@@ -151,5 +176,92 @@ public class Expendedor{
      */
     public Moneda getVuelto(){
         return depositoVuelto.getElemento();
+    }
+
+
+    /**
+     * Rellena únicamente los depósitos que se encuentran vacíos.
+     * @param num La cantidad de productos con la que se rellenará el depósito.
+     */
+    public void rellenarDepositosVacios(int num) {
+
+        if (depositoCocaCola.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoCocaCola.addElemento(new CocaCola());
+            }
+        }
+
+        if (depositoSprite.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoSprite.addElemento(new Sprite());
+            }
+        }
+
+        if (depositoFanta.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoFanta.addElemento(new Fanta());
+            }
+        }
+
+        if (depositoSnickers.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoSnickers.addElemento(new Snickers());
+            }
+        }
+
+        if (depositoSuper8.isEmpty()) {
+            for (int i = 0; i < num; i++) {
+                depositoSuper8.addElemento(new Super8());
+            }
+        }
+    }
+
+    /**
+     * Entregar el depósito lógico de CocaCola para conectarlo con la interfaz gráfica.
+     * @return El depósito de CocaCola.
+     */
+    public Deposito<Producto> getDepositoCocaCola() {
+        return this.depositoCocaCola;
+    }
+
+    /**
+     * Entregar el depósito lógico de Sprite para conectarlo con la interfaz gráfica.
+     * @return El depósito de Sprite.
+     */
+    public Deposito<Producto> getDepositoSprite() {
+        return this.depositoSprite;
+    }
+
+    /**
+     * Entregar el depósito lógico de Fanta para conectarlo con la interfaz gráfica.
+     * @return El depósito de Fanta.
+     */
+    public Deposito<Producto> getDepositoFanta() {
+        return this.depositoFanta;
+    }
+
+    /**
+     * Entregar el depósito lógico de Snickers para conectarlo con la interfaz gráfica.
+     * @return El depósito de Snickers.
+     */
+    public Deposito<Producto> getDepositoSnickers() {
+        return this.depositoSnickers;
+    }
+
+    /**
+     * Entregar el depósito lógico de Super8 para conectarlo con la interfaz gráfica.
+     * @return El depósito de Super8.
+     */
+    public Deposito<Producto> getDepositoSuper8() {
+        return this.depositoSuper8;
+    }
+
+    /**
+     * Observar el producto recién comprado sin extraerlo del compartimento de salida.
+     * Esto permite dibujarlo en pantalla sin alterar la lógica de retiro.
+     * @return El producto alojado en la salida, o null si está vacío.
+     */
+    public Producto verProducto() {
+        return this.productoParaEntregar;
     }
 }

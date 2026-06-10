@@ -7,7 +7,7 @@ public class Ventana extends JFrame {
         super("Expendedor");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 700);
+        this.setSize(ConstantesGUI.VENTANA_ANCHO, ConstantesGUI.VENTANA_ALTO);
         this.setLocationRelativeTo(null);
         PanelPrincipal p= new PanelPrincipal();
         this.add(p);
