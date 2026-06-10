@@ -18,8 +18,8 @@ public class Comprador {
      * @throws NoHayProductoException si no hay producto disponible
      */
     public Comprador(Moneda m,TipoProducto tipo,Expendedor exp) throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException{
-        Producto p= exp.comprarProducto(m, tipo);
-
+        exp.comprarProducto(m, tipo);
+        Producto p= exp.getProducto();
         consumido=p.consumir();
 
         Moneda m_vuelto= exp.getVuelto();
