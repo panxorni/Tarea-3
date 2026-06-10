@@ -4,7 +4,7 @@ import expendedor.logica.Expendedor;
 import expendedor.logica.Producto;
 import java.awt.Color;
 import java.awt.Graphics;
-
+import expendedor.gui
 
 // las dimensiones las cambiamos, no son las finales
 /**
@@ -34,15 +34,12 @@ public class PanelExpendedor {
 
     /**
      * Inicializar el panel del expendedor, crear su modelo lógico y posicionar los depósitos internos.
-     *
-     * @param x Coordenada X inicial de la máquina.
-     * @param y Coordenada Y inicial de la máquina.
      */
-    public PanelExpendedor(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.width = 400;
-        this.height = 600;
+    public PanelExpendedor() {
+        this.x = ConstantesGUI.EXPENDEDOR_X;
+        this.y = ConstantesGUI.EXPENDEDOR_Y;
+        this.width = ConstantesGUI.EXPENDEDOR_ANCHO;
+        this.height = ConstantesGUI.EXPENDEDOR_ALTO;
 
         // Fabricar el modelo lógico con 5 productos iniciales por depósito
         this.expendedorLogico = new Expendedor(5);
