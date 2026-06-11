@@ -25,6 +25,13 @@ public class PanelComprador{
         generarBotones();
     }
 
+    public void procesoClick(int clickX, int clickY){
+        for(BotonProducto b : botones){
+            if(b.esContenido(clickX,clickY)){
+                System.out.println("producto seleccionado" + b.getProducto().getNombre());
+            }
+        }
+    }
     public void paintComponent(Graphics g){
 
         g.setColor(Color.darkGray);

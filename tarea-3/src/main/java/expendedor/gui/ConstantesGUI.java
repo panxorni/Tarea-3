@@ -9,10 +9,10 @@ public final class ConstantesGUI {
     public static final int VENTANA_ALTO = 700;
 
     //Expendedor
-    public static final int EXPENDEDOR_X = 0;
-    public static final int EXPENDEDOR_Y = 0;
-    public static final int EXPENDEDOR_ANCHO = 0;
-    public static final int EXPENDEDOR_ALTO = 0;
+    public static final int EXPENDEDOR_X = 50;
+    public static final int EXPENDEDOR_Y = 40;
+    public static final int EXPENDEDOR_ANCHO = 400;
+    public static final int EXPENDEDOR_ALTO = 600;
 
     //Comprador
     public static final int COMPRADOR_X = 600;

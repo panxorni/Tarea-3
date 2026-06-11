@@ -41,8 +41,8 @@ public class PanelExpendedor {
     public PanelExpendedor(int x, int y) {
         this.x = x;
         this.y = y;
-        this.width = 400;
-        this.height = 600;
+        this.width = ConstantesGUI.EXPENDEDOR_ANCHO;
+        this.height = ConstantesGUI.EXPENDEDOR_ALTO;
 
         // Fabricar el modelo lógico con 5 productos iniciales por depósito
         this.expendedorLogico = new Expendedor(5);
@@ -126,6 +126,11 @@ public class PanelExpendedor {
         if (panelDepSuper8 != null) panelDepSuper8.reposicionar();
 
         System.out.println("makinola rellenada");
+    }
+    public void procesoClick(int clickX, int clickY){
+        if(contieneClic(clickX, clickY)){
+            recargarMaquina();
+        }
     }
 
     /**
