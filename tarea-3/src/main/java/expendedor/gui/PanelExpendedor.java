@@ -93,9 +93,11 @@ public class PanelExpendedor {
 
         // dibuja el producto comprado si existe uno listo para ser retirado
         Producto productoComprado = expendedorLogico.verProducto();
-        if (productoComprado != null) {
-            productoComprado.setXY(this.x + 160, this.y + 480);
-            productoComprado.paintComponent(g);
+
+        if (productoComprado !=null){
+            ProductoGUI productoGUI =new ProductoGUI(productoComprado);
+            productoGUI.setXY(this.x + 160,this.y + 480);
+            productoGUI.paintComponent(g);
         }
     }
 

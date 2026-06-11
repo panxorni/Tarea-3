@@ -58,12 +58,9 @@ public class PanelDeposito<T> {
                 int itemY = this.y + this.height - 40 - (i * separacionY);
 
                 // Evaluar el tipo de elemento para establecer sus nuevas coordenadas
-                if (elemento instanceof Producto) {
-                    ((Producto) elemento).setXY(itemX, itemY);
+                if (elemento instanceof Moneda) {
+                    ((Moneda) elemento).setXY(itemX, itemY);
                 }
-                //else if (elemento instanceof Moneda) {
-                //    ((Moneda) elemento).setXY(itemX, itemY);
-                //}
             }
         }
     }
@@ -93,11 +90,13 @@ public class PanelDeposito<T> {
 
                 //Ejecuta los métodos de dibujo correspondientes a cada tipo de objeto
                 if (elemento instanceof Producto) {
-                    ((Producto) elemento).paintComponent(g);
+                    ProductoGUI productoGUI = new ProductoGUI((Producto) elemento);
+                    productoGUI.setXY(itemX, itemY);
+                    productoGUI.paintComponent(g);
                 }
-                //else if (elemento instanceof Moneda) {
-                //    ((Moneda) elemento).paintComponent(g);
-                //}
+                else if (elemento instanceof Moneda) {
+                    ((Moneda) elemento).paintComponent(g);
+                }
             }
         }
     }
