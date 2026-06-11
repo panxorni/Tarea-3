@@ -27,19 +27,14 @@ public class PanelDeposito<T> {
     /**
      * Inicializa el PanelDeposito y lo enlazacon su modelo lógico
      * Recibir sus coordenadas relativas desde el PanelExpendedor para establecer su posición
-     *
-     * @param x              Coordenada X inicial
-     * @param y              Coordenada Y inicial
-     * @param width          Ancho del deposito
-     * @param height         Alto del deposito
      * @param colorFondo     Color de fondo para dibujar el compartimento
      * @param depositoLogico Objeto con la logica de Deposito
      */
-    public PanelDeposito(int x, int y, int width, int height, Color colorFondo, Deposito<T> depositoLogico) {
+    public PanelDeposito(int x, int y, Color colorFondo, Deposito<T> depositoLogico) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.width = ConstantesGUI.DEPOSITO_ANCHO;
+        this.height = ConstantesGUI.DEPOSITO_ALTO;
         this.colorFondo = colorFondo;
         this.depositoLogico = depositoLogico;
 
@@ -66,9 +61,9 @@ public class PanelDeposito<T> {
                 if (elemento instanceof Producto) {
                     ((Producto) elemento).setXY(itemX, itemY);
                 }
-                else if (elemento instanceof Moneda) {
-                    ((Moneda) elemento).setXY(itemX, itemY);
-                }
+                //else if (elemento instanceof Moneda) {
+                //    ((Moneda) elemento).setXY(itemX, itemY);
+                //}
             }
         }
     }
@@ -100,9 +95,9 @@ public class PanelDeposito<T> {
                 if (elemento instanceof Producto) {
                     ((Producto) elemento).paintComponent(g);
                 }
-                else if (elemento instanceof Moneda) {
-                    ((Moneda) elemento).paintComponent(g);
-                }
+                //else if (elemento instanceof Moneda) {
+                //    ((Moneda) elemento).paintComponent(g);
+                //}
             }
         }
     }
