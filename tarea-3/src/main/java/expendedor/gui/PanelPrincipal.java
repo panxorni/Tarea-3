@@ -10,10 +10,14 @@ public class PanelPrincipal extends JPanel {
 
     private PanelComprador comprador;
     private PanelExpendedor expendedor;
+
     public PanelPrincipal () {
-        expendedor = new PanelExpendedor ();
+
+        expendedor = new PanelExpendedor (ConstantesGUI.EXPENDEDOR_X,ConstantesGUI.EXPENDEDOR_Y);
         comprador = new PanelComprador();
+
         this.setBackground(Color.white);
+
         this.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -32,4 +36,3 @@ public class PanelPrincipal extends JPanel {
         expendedor.paintComponent(g); //llama al metodo paintComponent definido en el PanelExpendedor
     }
 }
-

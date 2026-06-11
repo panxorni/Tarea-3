@@ -5,6 +5,7 @@ import expendedor.logica.Producto;
 import java.awt.Color;
 import java.awt.Graphics;
 
+
 // las dimensiones las cambiamos, no son las finales
 /**
  * Representar la vista principal de la máquina expendedora.
@@ -33,10 +34,13 @@ public class PanelExpendedor {
 
     /**
      * Inicializar el panel del expendedor, crear su modelo lógico y posicionar los depósitos internos.
+     *
+     * @param x Coordenada X inicial de la máquina.
+     * @param y Coordenada Y inicial de la máquina.
      */
-    public PanelExpendedor() {
-        this.x = ConstantesGUI.EXPENDEDOR_X;
-        this.y = ConstantesGUI.EXPENDEDOR_Y;
+    public PanelExpendedor(int x, int y) {
+        this.x = x;
+        this.y = y;
         this.width = ConstantesGUI.EXPENDEDOR_ANCHO;
         this.height = ConstantesGUI.EXPENDEDOR_ALTO;
 
@@ -46,12 +50,16 @@ public class PanelExpendedor {
         // Calcular posiciones relativas para los depósitos dentro del vidrio
         int inicioX = this.x + 30;
         int inicioY = this.y + 30;
+        int anchoDep = 45;
+        int altoDep = 380;
         int separacion = 60;
-        this.panelDepCocaCola = new PanelDeposito<>(inicioX, inicioY, Color.RED, expendedorLogico.getDepositoCocaCola());
-        this.panelDepSprite   = new PanelDeposito<>(inicioX + separacion, inicioY,  Color.GREEN, expendedorLogico.getDepositoSprite());
-        this.panelDepFanta    = new PanelDeposito<>(inicioX + separacion * 2, inicioY, Color.ORANGE, expendedorLogico.getDepositoFanta());
-        this.panelDepSnickers = new PanelDeposito<>(inicioX + separacion * 3, inicioY, Color.PINK, expendedorLogico.getDepositoSnickers());
-        this.panelDepSuper8   = new PanelDeposito<>(inicioX + separacion * 4, inicioY,  Color.YELLOW, expendedorLogico.getDepositoSuper8());
+
+
+        this.panelDepCocaCola = new PanelDeposito<>(inicioX, inicioY, anchoDep, altoDep, Color.RED, expendedorLogico.getDepositoCocaCola());
+        this.panelDepSprite   = new PanelDeposito<>(inicioX + separacion, inicioY, anchoDep, altoDep, Color.GREEN, expendedorLogico.getDepositoSprite());
+        this.panelDepFanta    = new PanelDeposito<>(inicioX + separacion * 2, inicioY, anchoDep, altoDep, Color.ORANGE, expendedorLogico.getDepositoFanta());
+        this.panelDepSnickers = new PanelDeposito<>(inicioX + separacion * 3, inicioY, anchoDep, altoDep, Color.PINK, expendedorLogico.getDepositoSnickers());
+        this.panelDepSuper8   = new PanelDeposito<>(inicioX + separacion * 4, inicioY, anchoDep, altoDep, Color.YELLOW, expendedorLogico.getDepositoSuper8());
     }
 
     /**
@@ -118,6 +126,11 @@ public class PanelExpendedor {
         if (panelDepSuper8 != null) panelDepSuper8.reposicionar();
 
         System.out.println("makinola rellenada");
+    }
+    public void procesoClick(int clickX, int clickY){
+        if(contieneClic(clickX, clickY)){
+            recargarMaquina();
+        }
     }
 
     /**
