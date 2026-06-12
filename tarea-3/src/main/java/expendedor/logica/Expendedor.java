@@ -264,4 +264,8 @@ public class Expendedor {
     public Producto verProducto() {
         return this.productoParaEntregar;
     }
+
+    public Moneda verVuelto() {
+        return depositoVuelto.verElemento();
+    }
 }

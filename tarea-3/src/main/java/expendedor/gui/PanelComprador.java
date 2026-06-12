@@ -155,12 +155,18 @@ public class PanelComprador{
         if(monedaSeleccionada != null){
 
             monedero.remove(monedaSeleccionada);
-
             monedaSeleccionada = null;
+            posicionarMonedero();
         }
     }
     public void agregarProducto(Producto producto){
 
         productosComprados.add(producto);
+    }
+    public void agregarMoneda(Moneda moneda){
+
+        monedero.add(new MonedaGUI(moneda));
+
+        posicionarMonedero();
     }
 }

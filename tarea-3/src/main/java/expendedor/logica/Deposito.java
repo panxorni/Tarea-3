@@ -61,4 +61,18 @@ public class Deposito<T> {
     public ArrayList<T> getLista() {
         return this.almacen;
     }
+
+    /**
+     * Permite observar el primer elemento sin retirarlo.
+     *
+     * @return El primer elemento almacenado o null si está vacío.
+     */
+    public T verElemento() {
+
+        if (almacen.isEmpty()) {
+            return null;
+        }
+
+        return almacen.get(0);
+    }
 }

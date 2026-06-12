@@ -1,6 +1,7 @@
 package expendedor.gui;
 
 import expendedor.logica.Expendedor;
+import expendedor.logica.Moneda;
 import expendedor.logica.Producto;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -97,6 +98,18 @@ public class PanelExpendedor {
             productoGUI.setXY(this.x + 160,this.y + 480);
             productoGUI.paintComponent(g);
         }
+
+        g.setColor(Color.BLACK);
+        g.fillRect(this.x + 300, this.y + 460, 100, 80);
+
+        Moneda monedaVuelto = expendedorLogico.verVuelto();
+
+        if(monedaVuelto != null){
+
+            MonedaGUI monedaGUI = new MonedaGUI(monedaVuelto);
+            monedaGUI.setXY(this.x + 325, this.y + 475);
+            monedaGUI.paintComponent(g);
+        }
     }
 
     //se verifica el clic para despues rellenar el expendedor si fue dentro de los limites de la maquina
@@ -152,6 +165,22 @@ public class PanelExpendedor {
             int clickY){
 
         return clickX >= this.x + 150 && clickX <= this.x + 250 && clickY >= this.y + 460 && clickY <= this.y + 540;
+    }
+
+    private boolean clickSalidaVuelto(
+            int clickX,
+            int clickY){
+
+        return clickX >= this.x + 300 && clickX <= this.x + 400 && clickY >= this.y + 460 && clickY <= this.y + 540;
+    }
+    public Moneda retirarVuelto(
+            int clickX,
+            int clickY){
+
+        if(clickSalidaVuelto(clickX, clickY)){
+            return expendedorLogico.getVuelto();
+        }
+        return null;
     }
 
 }

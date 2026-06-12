@@ -1,6 +1,7 @@
 package expendedor.gui;
 
 import expendedor.logica.Expendedor;
+import expendedor.logica.Moneda;
 import expendedor.logica.Producto;
 import expendedor.logica.TipoProducto;
 
@@ -52,6 +53,13 @@ public class PanelPrincipal extends JPanel {
                 if(producto_seleccionado != null){
 
                     comprador.agregarProducto(producto_seleccionado);
+                }
+
+                Moneda vuelto = expendedor.retirarVuelto(e.getX(), e.getY());
+
+                if(vuelto != null){
+
+                    comprador.agregarMoneda(vuelto);
                 }
                 repaint();
             }
