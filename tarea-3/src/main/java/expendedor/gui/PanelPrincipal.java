@@ -45,7 +45,8 @@ public class PanelPrincipal extends JPanel {
                         comprador.eliminarMonedaSeleccionada();
                     }
                     catch(Exception ex){
-                        System.out.println(ex.getMessage());
+                        comprador.setMensaje(ex.getMessage()
+                        );
                     }
                 }
 

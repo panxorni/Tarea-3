@@ -18,6 +18,7 @@ public class PanelComprador{
     private ArrayList<MonedaGUI> monedero;
     private MonedaGUI monedaSeleccionada;
     private ArrayList<Producto> productosComprados;
+    private String mensaje;
 
     public PanelComprador(){
 
@@ -32,6 +33,7 @@ public class PanelComprador{
         generarMonedas();
         posicionarMonedero();
         productosComprados = new ArrayList<>();
+        mensaje = "";
     }
 
     public TipoProducto procesoClick(int clickX, int clickY){
@@ -94,6 +96,9 @@ public class PanelComprador{
             g.drawString(p.getClass().getSimpleName(), productoX + 20, productoY);
             productoY += 20;
         }
+
+        g.setColor(Color.RED);
+        g.drawString(mensaje, 40, 20);
     }
 
     private void generarBotones(){
@@ -157,6 +162,7 @@ public class PanelComprador{
             monedero.remove(monedaSeleccionada);
             monedaSeleccionada = null;
             posicionarMonedero();
+            productoSeleccionado = null;
         }
     }
     public void agregarProducto(Producto producto){
@@ -168,5 +174,8 @@ public class PanelComprador{
         monedero.add(new MonedaGUI(moneda));
 
         posicionarMonedero();
+    }
+    public void setMensaje(String mensaje){
+        this.mensaje = mensaje;
     }
 }
