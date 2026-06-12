@@ -1,5 +1,7 @@
 package expendedor.gui;
 
+import expendedor.logica.TipoProducto;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,6 +13,7 @@ public class PanelPrincipal extends JPanel {
     private PanelComprador comprador;
     private PanelExpendedor expendedor;
 
+
     public PanelPrincipal () {
 
         expendedor = new PanelExpendedor (ConstantesGUI.EXPENDEDOR_X,ConstantesGUI.EXPENDEDOR_Y);
@@ -21,7 +24,15 @@ public class PanelPrincipal extends JPanel {
         this.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
-                comprador.procesoClick(e.getX(), e.getY());
+                TipoProducto producto = comprador.procesoClick(e.getX(), e.getY());
+
+                if(producto != null){
+                    System.out.println(
+                            "Producto seleccionado: "
+                                    + producto
+                    );
+                }
+
                 expendedor.procesoClick(e.getX(), e.getY());
                 repaint();
             }

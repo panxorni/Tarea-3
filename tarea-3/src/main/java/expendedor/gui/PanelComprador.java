@@ -13,6 +13,7 @@ public class PanelComprador{
     private int anchoPanel;
     private int altoPanel;
     private ArrayList<BotonProducto> botones;
+    private TipoProducto productoSeleccionado;
 
     public PanelComprador(){
 
@@ -25,12 +26,20 @@ public class PanelComprador{
         generarBotones();
     }
 
-    public void procesoClick(int clickX, int clickY){
+    public TipoProducto procesoClick(int clickX, int clickY){
+
+        if(!contiene(clickX, clickY)){ //si el click no esta en panel comprador no se procesa
+            return null;
+        }
         for(BotonProducto b : botones){
-            if(b.esContenido(clickX,clickY)){
-                System.out.println("producto seleccionado " + b.getProducto().getNombre());
+
+            if(b.esContenido(clickX, clickY)){
+                productoSeleccionado = b.getProducto();
+                return productoSeleccionado;
             }
         }
+
+        return null;
     }
     public void paintComponent(Graphics g){
 
@@ -52,4 +61,11 @@ public class PanelComprador{
             botonY+=ConstantesGUI.BOTON_ALTO+ConstantesGUI.ESPACIADO;
         }
     }
+
+    public boolean contiene(int clickX, int clickY){
+
+        return clickX >= x && clickX <= x + anchoPanel && clickY >= y && clickY <= y + altoPanel;
+    }
+
+
 }
