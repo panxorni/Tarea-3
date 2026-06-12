@@ -1,5 +1,11 @@
 package expendedor.gui;
 
+/**
+ * Clase que almacena las constantes utilizadas por la interfaz gráfica.
+ * Centraliza las dimensiones y posiciones principales de la ventana,
+ * el expendedor, los depósitos, el comprador y los botones.
+ */
+
 public final class ConstantesGUI {
 
     private ConstantesGUI(){}

@@ -42,10 +42,6 @@ public class PanelDeposito<T> {
         reposicionar();
     }
 
-    /**
-     * Recalcular las posiciones relativas (0, 1, n-1) de los elementos internos.
-     * Llamar a este método cada vez que se agregue o retire un elemento del depósito.
-     */
     public void reposicionar() {
         /*
          * Las posiciones visuales se calculan directamente en paintComponent

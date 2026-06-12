@@ -11,10 +11,22 @@ import java.awt.event.*;
 
 //se debe implementar metodos paintComponent() para PanelComprador y PanelExpendedor
 
+/**
+ * Clase que representa el panel principal de la interfaz gráfica.
+ * Contiene al PanelExpendedor y al PanelComprador, coordina el dibujo
+ * de ambos componentes y administra los eventos de clic del mouse.
+ */
+
 public class PanelPrincipal extends JPanel {
 
     private PanelComprador comprador;
     private PanelExpendedor expendedor;
+
+    /**
+     * Constructor de la clase PanelPrincipal.
+     * Inicializa el panel del expendedor, el panel del comprador,
+     * define el color de fondo y configura el listener de eventos del mouse.
+     */
 
 
     public PanelPrincipal () {
@@ -60,6 +72,15 @@ public class PanelPrincipal extends JPanel {
             }
         });
     }
+
+    /**
+     * Dibuja el panel principal y delega el dibujo de sus componentes internos.
+     * Primero se dibuja el fondo del JPanel mediante super.paintComponent(g),
+     * luego se dibuja el comprador y finalmente el expendedor.
+     *
+     * @param g Objeto Graphics utilizado para dibujar los componentes.
+     */
+
     @Override
     public void paintComponent (Graphics g) {  //todo se dibuja a partir de este método
         super.paintComponent(g); //llama al método paint al que hace override en la super clase
