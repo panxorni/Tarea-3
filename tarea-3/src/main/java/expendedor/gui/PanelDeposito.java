@@ -75,7 +75,7 @@ public class PanelDeposito<T> {
 
             for (int i = 0; i < depositoLogico.getLista().size(); i++) {
                 T elemento = depositoLogico.getLista().get(i);
-                int separacionY =30;
+                int separacionY =60;
                 int itemX =this.x + 5;
                 int itemY =this.y + this.height - 60 -(i * separacionY);
                 //Ejecuta los métodos de dibujo correspondientes a cada tipo de objeto
