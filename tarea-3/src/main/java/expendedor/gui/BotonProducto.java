@@ -47,7 +47,10 @@ public class BotonProducto {
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(x, y, botonAncho, botonAlto);
         g.setColor(Color.BLACK);
+        Font fuenteOriginal = g.getFont();
+        g.setFont(new Font("Arial", Font.BOLD, 16));
         g.drawString(producto.name(), x+15, y+25);
+        g.setFont(fuenteOriginal);
     }
 
     /**

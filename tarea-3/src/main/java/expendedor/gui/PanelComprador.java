@@ -117,7 +117,10 @@ public class PanelComprador{
         g.setColor(Color.lightGray);
         g.fillRect(x+200, y+20, 160, 290);
         g.setColor(Color.BLACK);
-        g.drawString("Productos comprados:", x + 220, y + 40);
+        Font fuenteOriginal = g.getFont();
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        g.drawString("Productos comprados:", x + 202, y + 40);
+        g.setFont(fuenteOriginal);
         int productoY = y + 60;
         int productoX = x + 215;
         for(Producto p : productosComprados){
@@ -133,7 +136,7 @@ public class PanelComprador{
                 productoY = y+60;
             }
         }
-        Font fuenteOriginal = g.getFont();
+        fuenteOriginal = g.getFont();
         g.setFont(new Font("Arial", Font.BOLD, 18));
         g.setColor(Color.RED);
         g.drawString(mensaje, 40, 18);
