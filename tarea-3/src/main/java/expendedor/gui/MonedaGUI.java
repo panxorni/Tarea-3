@@ -49,7 +49,7 @@ public class MonedaGUI {
             return Color.lightGray;
         }
         else if(moneda.getValor()==500){
-            return Color.darkGray;
+            return Color.orange ;
         }
         else if(moneda.getValor()==1000){
             return Color.green;

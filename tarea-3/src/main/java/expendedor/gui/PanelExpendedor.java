@@ -87,9 +87,10 @@ public class PanelExpendedor {
         if (panelDepSuper8 != null) panelDepSuper8.paintComponent(g);
 
         // dibujar el compartimento de salida del producto (abajo)
-        g.setColor(Color.BLACK);
+        g.setColor(Color.darkGray);
         g.fillRect(this.x + 150, this.y + 460, 100, 80);
-
+        g.setColor(Color.black);
+        g.drawRect(this.x + 150, this.y + 460, 100, 80);
         // dibuja el producto comprado si existe uno listo para ser retirado
         Producto productoComprado = expendedorLogico.verProducto();
 
@@ -99,9 +100,10 @@ public class PanelExpendedor {
             productoGUI.paintComponent(g);
         }
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.darkGray);
         g.fillRect(this.x + 300, this.y + 460, 100, 80);
-
+        g.setColor(Color.black);
+        g.drawRect(this.x + 300, this.y + 460, 100, 80);
         Moneda monedaVuelto = expendedorLogico.verVuelto();
 
         if(monedaVuelto != null){

@@ -36,12 +36,12 @@ public class PanelPrincipal extends JPanel {
                     try{
                         expendedor.getExpendedorLogico().comprarProducto(comprador.getMonedaSeleccionada(), comprador.getProductoSeleccionado());
 
-                        comprador.eliminarMonedaSeleccionada();
                     }
                     catch(Exception ex){
                         comprador.setMensaje(ex.getMessage()
                         );
                     }
+                    comprador.eliminarMonedaSeleccionada();
                 }
 
                 Producto producto_seleccionado = expendedor.procesoClick(e.getX(), e.getY());
