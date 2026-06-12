@@ -50,16 +50,14 @@ public class PanelExpendedor {
         // Calcular posiciones relativas para los depósitos dentro del vidrio
         int inicioX = this.x + 30;
         int inicioY = this.y + 30;
-        int anchoDep = 45;
-        int altoDep = 380;
-        int separacion = 60;
+        int separacion = ConstantesGUI.DEPOSITO_SEPARACION;
 
 
-        this.panelDepCocaCola = new PanelDeposito<>(inicioX, inicioY, anchoDep, altoDep, Color.RED, expendedorLogico.getDepositoCocaCola());
-        this.panelDepSprite   = new PanelDeposito<>(inicioX + separacion, inicioY, anchoDep, altoDep, Color.GREEN, expendedorLogico.getDepositoSprite());
-        this.panelDepFanta    = new PanelDeposito<>(inicioX + separacion * 2, inicioY, anchoDep, altoDep, Color.ORANGE, expendedorLogico.getDepositoFanta());
-        this.panelDepSnickers = new PanelDeposito<>(inicioX + separacion * 3, inicioY, anchoDep, altoDep, Color.PINK, expendedorLogico.getDepositoSnickers());
-        this.panelDepSuper8   = new PanelDeposito<>(inicioX + separacion * 4, inicioY, anchoDep, altoDep, Color.YELLOW, expendedorLogico.getDepositoSuper8());
+        this.panelDepCocaCola = new PanelDeposito<>(inicioX, inicioY, Color.RED, expendedorLogico.getDepositoCocaCola());
+        this.panelDepSprite = new PanelDeposito<>(inicioX + separacion, inicioY, Color.GREEN, expendedorLogico.getDepositoSprite());
+        this.panelDepFanta = new PanelDeposito<>(inicioX + separacion * 2, inicioY, Color.ORANGE, expendedorLogico.getDepositoFanta());
+        this.panelDepSnickers = new PanelDeposito<>(inicioX + separacion * 3, inicioY, Color.PINK, expendedorLogico.getDepositoSnickers());
+        this.panelDepSuper8 = new PanelDeposito<>(inicioX + separacion * 4, inicioY, Color.YELLOW, expendedorLogico.getDepositoSuper8());
     }
 
     /**

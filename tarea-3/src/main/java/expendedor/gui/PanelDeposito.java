@@ -47,22 +47,10 @@ public class PanelDeposito<T> {
      * Llamar a este método cada vez que se agregue o retire un elemento del depósito.
      */
     public void reposicionar() {
-        if (depositoLogico != null) {
-            int separacionY = 30; // Definir el espacio vertical entre cada elemento
-            int itemX = this.x + 5; // Definir el margen izquierdo interno
-
-            for (int i = 0; i < depositoLogico.getLista().size(); i++) {
-                T elemento = depositoLogico.getLista().get(i);
-
-                // Apilar los objetos de abajo hacia arriba en forma de columna
-                int itemY = this.y + this.height - 40 - (i * separacionY);
-
-                // Evaluar el tipo de elemento para establecer sus nuevas coordenadas
-                if (elemento instanceof Moneda) {
-                    ((Moneda) elemento).setXY(itemX, itemY);
-                }
-            }
-        }
+        /*
+         * Las posiciones visuales se calculan directamente en paintComponent
+         * por ProductoGUI y MonedaGUI
+         */
     }
 
     /**
@@ -87,7 +75,9 @@ public class PanelDeposito<T> {
 
             for (int i = 0; i < depositoLogico.getLista().size(); i++) {
                 T elemento = depositoLogico.getLista().get(i);
-
+                int separacionY =30;
+                int itemX =this.x + 5;
+                int itemY =this.y + this.height - 40 -(i * separacionY);
                 //Ejecuta los métodos de dibujo correspondientes a cada tipo de objeto
                 if (elemento instanceof Producto) {
                     ProductoGUI productoGUI = new ProductoGUI((Producto) elemento);
@@ -95,7 +85,9 @@ public class PanelDeposito<T> {
                     productoGUI.paintComponent(g);
                 }
                 else if (elemento instanceof Moneda) {
-                    ((Moneda) elemento).paintComponent(g);
+                    MonedaGUI monedaGUI = new MonedaGUI((Moneda) elemento);
+                    monedaGUI.setXY(itemX, itemY);
+                    monedaGUI.paintComponent(g);
                 }
             }
         }
