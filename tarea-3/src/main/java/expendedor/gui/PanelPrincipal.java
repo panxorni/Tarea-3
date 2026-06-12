@@ -30,12 +30,6 @@ public class PanelPrincipal extends JPanel {
             public void mouseClicked(MouseEvent e){
                 TipoProducto producto = comprador.procesoClick(e.getX(), e.getY());
 
-                if(producto != null){ //mensaje en consola para probar que esta funcionando la seleccion
-                    System.out.println(
-                            "Producto seleccionado: "
-                                    + producto
-                    );
-                }
 
                 if(comprador.puedeComprar()){
 

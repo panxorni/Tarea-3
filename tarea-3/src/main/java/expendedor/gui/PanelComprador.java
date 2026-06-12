@@ -89,16 +89,20 @@ public class PanelComprador{
         g.setColor(Color.WHITE);
 
         g.drawString("Productos comprados:", x + 200, y + 40);
-        int productoY = y + 70;
-        int productoX = x + 180;
+        int productoY = y + 60;
+        int productoX = x + 200;
         for(Producto p : productosComprados){
+            ProductoGUI productoGUI = new ProductoGUI(p);
 
-            g.drawString(p.getClass().getSimpleName(), productoX + 20, productoY);
-            productoY += 20;
+            productoGUI.setXY(productoX, productoY);
+
+            productoGUI.paintComponent(g);
+            //g.drawString(p.getClass().getSimpleName(), productoX + 20, productoY);
+            productoY += 60;
         }
 
         g.setColor(Color.RED);
-        g.drawString(mensaje, 40, 20);
+        g.drawString(mensaje, 40, 15);
     }
 
     private void generarBotones(){
