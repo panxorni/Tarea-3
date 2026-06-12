@@ -5,13 +5,18 @@ package expendedor.logica;
  * Implementa la interfaz Comparable para permitir el ordenamiento de listas de monedas.
  */
 public abstract class Moneda implements Comparable<Moneda> {
-
+    private static int siguienteSerie = 1;
+    private int serie;
     /**
      * Constructor por defecto de la moneda.
      */
     public Moneda() {
+        serie = siguienteSerie++;
     }
 
+    public int getSerie() {
+        return serie;
+    }
     /**
      * Obtiene el valor de la moneda.
      * Cada subclase debe definir este valor.
@@ -40,6 +45,6 @@ public abstract class Moneda implements Comparable<Moneda> {
      */
     @Override
     public String toString() {
-        return "Moneda de $" + this.getValor() + " (Serie: " + this.hashCode() + ")";
+        return "Moneda de $" + this.getValor() + " (Serie: " + this.serie + ")";
     }
 }

@@ -133,9 +133,11 @@ public class PanelComprador{
                 productoY = y+60;
             }
         }
-
+        Font fuenteOriginal = g.getFont();
+        g.setFont(new Font("Arial", Font.BOLD, 18));
         g.setColor(Color.RED);
-        g.drawString(mensaje, 40, 15);
+        g.drawString(mensaje, 40, 18);
+        g.setFont(fuenteOriginal);
     }
 
     private void generarBotones(){

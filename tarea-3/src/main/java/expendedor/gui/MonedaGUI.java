@@ -52,8 +52,8 @@ public class MonedaGUI {
         g.setColor(Color.BLACK);
         g.drawOval(x,y,diametro,diametro);
 
-        g.drawString("$" + moneda.getValor(), x+5, y+15);
-        g.drawString("S: " + moneda.hashCode(), x+5, y+35);
+        g.drawString("$" + moneda.getValor(), x+5, y+20);
+        g.drawString("S: " + moneda.getSerie(), x+7, y+35);
         if(seleccionada){
             g.setColor(Color.RED);
             g.drawOval(
