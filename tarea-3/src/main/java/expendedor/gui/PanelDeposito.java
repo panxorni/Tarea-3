@@ -77,7 +77,7 @@ public class PanelDeposito<T> {
                 T elemento = depositoLogico.getLista().get(i);
                 int separacionY =30;
                 int itemX =this.x + 5;
-                int itemY =this.y + this.height - 40 -(i * separacionY);
+                int itemY =this.y + this.height - 60 -(i * separacionY);
                 //Ejecuta los métodos de dibujo correspondientes a cada tipo de objeto
                 if (elemento instanceof Producto) {
                     ProductoGUI productoGUI = new ProductoGUI((Producto) elemento);

@@ -15,9 +15,9 @@ public final class ConstantesGUI {
     public static final int EXPENDEDOR_ALTO = 600;
 
     //Deposito
-    public static final int DEPOSITO_ANCHO = 45;
+    public static final int DEPOSITO_ANCHO = 65;
     public static final int DEPOSITO_ALTO = 380;
-    public static final int DEPOSITO_SEPARACION = 60;
+    public static final int DEPOSITO_SEPARACION = 80;
 
     //Comprador
     public static final int COMPRADOR_X = 560;

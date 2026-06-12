@@ -28,7 +28,7 @@ public class PanelComprador{
     public void procesoClick(int clickX, int clickY){
         for(BotonProducto b : botones){
             if(b.esContenido(clickX,clickY)){
-                System.out.println("producto seleccionado" + b.getProducto().getNombre());
+                System.out.println("producto seleccionado " + b.getProducto().getNombre());
             }
         }
     }

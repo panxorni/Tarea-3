@@ -13,8 +13,8 @@ public class ProductoGUI {
             this.producto=producto;
             this.x=0;
             this.y=0;
-            this.alto=40;
-            this.ancho=80;
+            this.alto=ConstantesGUI.DEPOSITO_ANCHO-10;
+            this.ancho=59;
         }
     public Producto getProducto() {
         return producto;
