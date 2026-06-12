@@ -127,10 +127,16 @@ public class PanelExpendedor {
 
         System.out.println("makinola rellenada");
     }
-    public void procesoClick(int clickX, int clickY){
+    public Producto procesoClick(int clickX, int clickY){
+
+        if(clickSalidaProducto(clickX, clickY)){
+
+            return expendedorLogico.getProducto();
+        }
         if(contieneClic(clickX, clickY)){
             recargarMaquina();
         }
+        return null;
     }
 
     /**
@@ -140,4 +146,12 @@ public class PanelExpendedor {
     public Expendedor getExpendedorLogico() {
         return this.expendedorLogico;
     }
+
+    private boolean clickSalidaProducto(
+            int clickX,
+            int clickY){
+
+        return clickX >= this.x + 150 && clickX <= this.x + 250 && clickY >= this.y + 460 && clickY <= this.y + 540;
+    }
+
 }

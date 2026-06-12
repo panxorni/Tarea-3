@@ -1,10 +1,7 @@
 package expendedor.gui;
 
 
-import expendedor.logica.Moneda;
-import expendedor.logica.Moneda1000;
-import expendedor.logica.Moneda500;
-import expendedor.logica.TipoProducto;
+import expendedor.logica.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,6 +17,8 @@ public class PanelComprador{
     private ArrayList<MonedaGUI> botonesMonedas;
     private ArrayList<MonedaGUI> monedero;
     private MonedaGUI monedaSeleccionada;
+    private ArrayList<Producto> productosComprados;
+
     public PanelComprador(){
 
         x=ConstantesGUI.COMPRADOR_X;
@@ -32,6 +31,7 @@ public class PanelComprador{
         monedero=new ArrayList<>();
         generarMonedas();
         posicionarMonedero();
+        productosComprados = new ArrayList<>();
     }
 
     public TipoProducto procesoClick(int clickX, int clickY){
@@ -84,6 +84,16 @@ public class PanelComprador{
         g.setColor(Color.WHITE);
         g.drawString("Monedero", x + 20, y + 280);
         g.drawString("Moneda: " + (monedaSeleccionada == null ? "Ninguna" : "$" + monedaSeleccionada.getMoneda().getValor()), x + 20, y + altoPanel - 40);
+        g.setColor(Color.WHITE);
+
+        g.drawString("Productos comprados:", x + 200, y + 40);
+        int productoY = y + 70;
+        int productoX = x + 180;
+        for(Producto p : productosComprados){
+
+            g.drawString(p.getClass().getSimpleName(), productoX + 20, productoY);
+            productoY += 20;
+        }
     }
 
     private void generarBotones(){
@@ -104,23 +114,11 @@ public class PanelComprador{
 
     private void generarMonedas(){
 
-        monedero.add(
-                new MonedaGUI(
-                        new Moneda1000()
-                )
-        );
+        monedero.add(new MonedaGUI(new Moneda1000()));
 
-        monedero.add(
-                new MonedaGUI(
-                        new Moneda1000()
-                )
-        );
+        monedero.add(new MonedaGUI(new Moneda1000()));
 
-        monedero.add(
-                new MonedaGUI(
-                        new Moneda500()
-                )
-        );
+        monedero.add(new MonedaGUI(new Moneda500()));
     }
     private void posicionarMonedero(){
 
@@ -151,5 +149,18 @@ public class PanelComprador{
         }
 
         return monedaSeleccionada.getMoneda();
+    }
+    public void eliminarMonedaSeleccionada(){
+
+        if(monedaSeleccionada != null){
+
+            monedero.remove(monedaSeleccionada);
+
+            monedaSeleccionada = null;
+        }
+    }
+    public void agregarProducto(Producto producto){
+
+        productosComprados.add(producto);
     }
 }

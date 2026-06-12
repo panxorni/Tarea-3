@@ -1,5 +1,7 @@
 package expendedor.gui;
 
+import expendedor.logica.Expendedor;
+import expendedor.logica.Producto;
 import expendedor.logica.TipoProducto;
 
 import javax.swing.*;
@@ -19,6 +21,7 @@ public class PanelPrincipal extends JPanel {
         expendedor = new PanelExpendedor (ConstantesGUI.EXPENDEDOR_X,ConstantesGUI.EXPENDEDOR_Y);
         comprador = new PanelComprador();
 
+
         this.setBackground(Color.white);
 
         this.addMouseListener(new MouseAdapter(){
@@ -33,17 +36,23 @@ public class PanelPrincipal extends JPanel {
                     );
                 }
 
-                if(comprador.puedeComprar()){ //mensaje en consola para probar que funciona
-                    System.out.println(
-                            "Comprar "
-                                    + comprador.getProductoSeleccionado()
-                                    + " con "
-                                    + comprador
-                                    .getMonedaSeleccionada()
-                                    .getValor()
-                    );
+                if(comprador.puedeComprar()){
+
+                    try{
+                        expendedor.getExpendedorLogico().comprarProducto(comprador.getMonedaSeleccionada(), comprador.getProductoSeleccionado());
+
+                        comprador.eliminarMonedaSeleccionada();
+                    }
+                    catch(Exception ex){
+                        System.out.println(ex.getMessage());
+                    }
                 }
-                expendedor.procesoClick(e.getX(), e.getY());
+
+                Producto producto_seleccionado = expendedor.procesoClick(e.getX(), e.getY());
+                if(producto_seleccionado != null){
+
+                    comprador.agregarProducto(producto_seleccionado);
+                }
                 repaint();
             }
         });
