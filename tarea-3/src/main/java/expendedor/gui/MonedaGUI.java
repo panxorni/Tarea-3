@@ -3,6 +3,12 @@ package expendedor.gui;
 import java.awt.*;
 import expendedor.logica.Moneda;
 
+/**
+ * Clase que representa gráficamente una moneda dentro de la interfaz
+ * Permite dibujar la moneda como un círculo, diferenciarla por color según su valor
+ * y detectar si un clic del mouse ocurrió dentro de sus límites
+ */
+
 public class MonedaGUI {
     protected Moneda moneda;
     protected int x;
@@ -10,12 +16,26 @@ public class MonedaGUI {
     protected int diametro;
     private boolean seleccionada;
 
+    /**
+     * Constructor de la clase MonedaGUI
+     * Inicializa la moneda lógica asociada y define sus valores gráficos iniciales
+     *
+     * @param moneda Moneda lógica que será representada gráficamente
+     */
+
     public MonedaGUI(Moneda moneda){
         this.moneda=moneda;
         this.x= 0;
         this.y= 0;
         this.diametro= 45;
     }
+
+    /**
+     * Entrega la moneda lógica asociada a esta representación gráfica
+     *
+     * @return La moneda representada por esta vista
+     */
+
     public Moneda getMoneda(){
         return moneda;
     }

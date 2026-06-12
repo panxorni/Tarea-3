@@ -6,6 +6,12 @@ import expendedor.logica.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Esta clase representa gráficamente al comprador en la interfaz
+ * Permite seleccionar productos, seleccionar monedas del monedero y
+ * mostrar productos comprados
+ */
+
 public class PanelComprador{
 
     private int x;
@@ -14,11 +20,16 @@ public class PanelComprador{
     private int altoPanel;
     private ArrayList<BotonProducto> botones;
     private TipoProducto productoSeleccionado;
-    private ArrayList<MonedaGUI> botonesMonedas;
     private ArrayList<MonedaGUI> monedero;
     private MonedaGUI monedaSeleccionada;
     private ArrayList<Producto> productosComprados;
     private String mensaje;
+
+    /**
+     * Constructor de la clase PanelComprador
+     * inicializa la posición, dimensiones, botones de productos,
+     * monedero inicial y lista de productos comprados
+     */
 
     public PanelComprador(){
 
@@ -35,6 +46,15 @@ public class PanelComprador{
         productosComprados = new ArrayList<>();
         mensaje = "";
     }
+
+    /**
+     * Procesa un click realizado dentro del panel del comprador
+     * Permite seleccionar un producto o una moneda del monedero
+     *
+     * @param clickX Coordenada X del click
+     * @param clickY Coordenada Y del click
+     * @return El tipo de producto seleccionado, o null si no se seleccionó un producto
+     */
 
     public TipoProducto procesoClick(int clickX, int clickY){
 
@@ -69,6 +89,15 @@ public class PanelComprador{
         }
         return null;
     }
+
+    /**
+     * Dibuja el panel del comprador, los botones de productos,
+     * el monedero, la moneda seleccionada, el producto seleccionado,
+     * los productos comprados y el mensaje actual.
+     *
+     * @param g Objeto Graphics utilizado para dibujar el panel
+     */
+
     public void paintComponent(Graphics g){
 
         g.setColor(Color.darkGray);
@@ -112,6 +141,14 @@ public class PanelComprador{
         }
     }
 
+    /**
+     * Verifica si un clicdk ocurrió dentro del área del panel comprador
+     *
+     * @param clickX Coordenada X del click
+     * @param clickY Coordenada Y del click
+     * @return true si el click está dentro del panel, false en caso contrario
+     */
+
     public boolean contiene(int clickX, int clickY){
 
         return clickX >= x && clickX <= x + anchoPanel && clickY >= y && clickY <= y + altoPanel;
@@ -140,13 +177,34 @@ public class PanelComprador{
             monedaX += 60;
         }
     }
+
+    /**
+     * Indica si el comprador tiene un producto y una moneda seleccionados.
+     *
+     * @return true si existe un producto y una moneda seleccionados, false en caso contrario
+     */
+
     public boolean puedeComprar(){
 
         return productoSeleccionado != null && monedaSeleccionada != null;
     }
+
+    /**
+     * Entrega el producto seleccionado actualmente por el comprador.
+     *
+     * @return El tipo de producto seleccionado, o null si no hay selección
+     */
+
     public TipoProducto getProductoSeleccionado(){
         return productoSeleccionado;
     }
+
+    /**
+     * Entrega la moneda seleccionada actualmente por el comprador.
+     *
+     * @return La moneda seleccionada, o null si no hay moneda seleccionada.
+     */
+
     public Moneda getMonedaSeleccionada(){
 
         if(monedaSeleccionada == null){
@@ -155,6 +213,12 @@ public class PanelComprador{
 
         return monedaSeleccionada.getMoneda();
     }
+
+    /**
+     * ELimina la moneda seleccionada actualmente.
+     * Luego actualiza la posición de las monedas restantes y limpia la selección
+     */
+
     public void eliminarMonedaSeleccionada(){
 
         if(monedaSeleccionada != null){
@@ -165,16 +229,37 @@ public class PanelComprador{
             productoSeleccionado = null;
         }
     }
+
+    /**
+     * Agrega un producto a la lista de productos comprados.
+     *
+     * @param producto Producto comprado que será almacenado visualmente.
+     */
+
     public void agregarProducto(Producto producto){
 
         productosComprados.add(producto);
     }
+
+    /**
+     * Agrega una moneda al monedero del comprador
+     *
+     * @param moneda Moneda lógica que será representada gráficamente en el monedero
+     */
+
     public void agregarMoneda(Moneda moneda){
 
         monedero.add(new MonedaGUI(moneda));
 
         posicionarMonedero();
     }
+
+    /**
+     * Define el mensaje que se mostrará en la interfaz
+     *
+     * @param mensaje Texto que se desea mostrar
+     */
+
     public void setMensaje(String mensaje){
         this.mensaje = mensaje;
     }
