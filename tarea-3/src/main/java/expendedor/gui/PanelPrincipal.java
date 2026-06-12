@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-//se debe implementar metodos paintComponent() para PanelComprador y PanelExpendedor
+
 
 /**
  * Clase que representa el panel principal de la interfaz gráfica.

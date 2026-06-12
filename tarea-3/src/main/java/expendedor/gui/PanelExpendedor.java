@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 
-// las dimensiones las cambiamos, no son las finales
+
 /**
  * Representar la vista principal de la máquina expendedora.
  * Contener y gestionar el dibujo de la carcasa, el vidrio y todos los depósitos internos.
